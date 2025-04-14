@@ -3,6 +3,7 @@ import "../styles/about_us.css";
 import { Link } from "react-router-dom";
 import Header from "../components/header"; // Adjust the path if needed
 
+
 export default function AboutUs() {
   return (
     <>
@@ -10,17 +11,27 @@ export default function AboutUs() {
     <div className="about-us-page">
 
       {/* About Us Hero Section */}
-      <section className="about-hero">
-        <div className="about-hero-content">
-          <h1>KNOW ABOUT US</h1>
-          <h2>We are a non-governmental organization</h2>
-          <h4>Our NGO is committed to creating positive change in our communities through sustainable development, education, and humanitarian initiatives. Driven by a passion for social justice and equality, we work tirelessly to empower marginalized groups, advocate for human rights, and provide essential resources to those in need. Our team of dedicated volunteers and professionals collaborates with local partners to implement impactful project. With transparency, compassion, and innovation at our core, we strive to build a brighter, more inclusive future for all.</h4>
-        </div>
-      </section>
+      <section className="about-top">
+  <div className="left">
+    <div className="about-heading">
+      <span className="line1111"></span>
+      <p className="subheading">ABOUT US</p>
+    </div>
+    <h1>We are a non-governmental organization</h1>
+    <p>
+      Our NGO is committed to creating positive change in our communities through sustainable
+      development, education, and humanitarian initiatives. Driven by a passion for social justice and
+      equality, we work tirelessly to empower marginalized groups, advocate for human rights, and provide
+      essential resources to those in need. Our team of dedicated volunteers and professionals collaborates
+      with local partners to implement impactful projects. With transparency, compassion, and innovation
+      at our core, we strive to build a brighter, more inclusive future for all.
+    </p>
+  </div>
+</section>
 
       {/* Main Image */}
       <div className="main-image">
-        <img src="/ngo_g.png" alt="Our team with children" />
+        <img src="/assets/aboutimage.png" alt="Our team with children" />
       </div>
 
       {/* Mission and Vision */}
@@ -50,55 +61,50 @@ export default function AboutUs() {
             <h6>Founder</h6>
           </div>
           <div className="team-member">
-            <img src="/ngo_o.png" alt="Team Member" />
+            <img src="/assets/bhavesh.png" alt="Team Member" />
             <h4>Bhavesh Shukla</h4>
             <h6>Co-Founder</h6>
           </div>
           <div className="team-member">
-            <img src="/ngo_p.png" alt="Team Member" />
-            <h4>Kyle Obrien</h4>
-            <h6>Head of Authority</h6>
+            <img src="/assets/bhushan.png" alt="Team Member" />
+            <h4>Bhushan Chalke</h4>
+            <h6>Executive</h6>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Footer Section */}
       <footer className="footer">
-        <div className="footer-content">
-          <div className="footer-logo">
-            <h3>Ek Hath Madticha</h3>
+        <div className="footer-container">
+          {/* Brand Name */}
+          <div className="footer-brand">
+            <h2>Ek Hath Madticha</h2>
           </div>
-          
+      
+          {/* Navigation Links */}
           <div className="footer-links">
-            <h4>Home</h4>
-            <ul>
-              <li><Link to="/about_us">About Us</Link></li>
-              <li><Link to="/about_us">Team</Link></li>
-              <li><Link to="/what_we_do">What We Do</Link></li>
+            <div className="footer-column">
+              <ul>
+              <li><Link to="/"><h3>Home</h3></Link></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/what-we-do">What We Do</Link></li>
               <li><Link to="/contact">Contact</Link></li>
-            </ul>
-          </div>
-          
-          <div className="footer-links">
-            <h4>More</h4>
-            <ul>
-            <li><Link to="/project_readmore">Projects</Link></li>
-            <li><Link to="/event_readmore">Events</Link></li>
-            <li><Link to="/donate">Donate</Link></li>
-            </ul>
-          </div>
-          
-          <div className="footer-contact">
-            <h4>Connect</h4>
-            <ul>
-              <li><a href="[https://instagram.com](https://instagram.com)">Instagram</a></li>
-            </ul>
+              <li><Link to="/donate">Donate</Link></li>
+              </ul>
+            </div>
+      
+            <div className="footer-column">
+              <h3>Connect</h3>
+              <ul>
+              <li><a href="https://www.instagram.com/ekhatmadticha?igsh=MXR1Mmo2Z2h0cW4wZA==" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="mailto:chetanchalke7795@gmail.com">Gmail</a></li>
+              </ul>
+            </div>
           </div>
         </div>
-        
-        <div className="footer-bottom">
-          <p>&copy; 2025 Ek Hath Madticha. All rights reserved.</p>
-        </div>
+        <div className="footer-copyright">
+    <p>© {new Date().getFullYear()} Ek Hath Madticha. All rights reserved.</p>
+  </div>
       </footer>
     </div>
     </>

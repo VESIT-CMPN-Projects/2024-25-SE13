@@ -2,11 +2,14 @@ import React , { useEffect, useState } from "react";
 import "../styles/home.css";
 import { FaGraduationCap, FaTshirt, FaBook } from "react-icons/fa"; // Importing icons
 import Header from "../components/header"; // Adjust the path if needed
+import { Link } from 'react-router-dom';
 
 
 const Home = () => {
   const [initiatives, setInitiatives] = useState([]);
   const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+const [showEventPopup, setShowEventPopup] = useState(false);
   const [showVolunteerForm, setShowVolunteerForm] = useState(false);
 const [formData, setFormData] = useState({
   firstName: "",
@@ -22,7 +25,7 @@ const handleChange = (e) => {
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const response = await fetch("http://localhost:5000/api/volunteers/", {
+    const response = await fetch("https://ek-hath-madticha-backend.onrender.com/api/volunteers/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +53,7 @@ const handleSubmit = async (e) => {
   }, []);
   useEffect(() => {
   
-    fetch("http://localhost:5000/api/events/")
+    fetch("https://ek-hath-madticha-backend.onrender.com/api/events/")
       .then((response) => {
         return response.json();
       })
@@ -90,8 +93,9 @@ const handleSubmit = async (e) => {
             We are committed to making a difference by ensuring that basic needs and
             educational opportunities reach those who need them most.
           </p>
-          <button className="learn-more-btn">Learn more</button>
-        </div>
+          <Link to="/about">
+      <button className="learn-more-btn">Learn more</button>
+    </Link>        </div>
       </section>
 
       <section className="services-section">
@@ -143,22 +147,34 @@ const handleSubmit = async (e) => {
           <h2 className="initiatives-heading">
             We are creating a place where children in need can thrive
           </h2>
-          <div className="initiatives-list">
-            {initiatives.map((initiative) => (
-              <div key={initiative.id} className="initiative-card">
-                <img
-                  src={initiative.image}
-                  alt={initiative.title}
-                  className="initiative-image"
-                />
-                <div className="initiative-overlay">
-                  <h3>{initiative.title}</h3>
-                  <p>{initiative.description}</p>
-                  <button className="learn-more-btn">Learn more</button>
-                </div>
+          <div className="three-cards">
+      <div className="initiative-card">
+        <img src="/assets/image1.png" alt="Education Support" className="card-image" />
+        <div className="card-overlay">
+          <h3>Cloth Donation</h3>
+          <p>We provide children in need with clothes, ensuring they have the comfort and dignity every child deserves.</p>
+          <Link to="/cloth-donation"><button className="learn-more-btn1">Learn more</button></Link>
+        </div>
+      </div>
+
+      <div className="initiative-card">
+        <img src="/assets/image2.png" alt="Healthcare Access" className="card-image" />
+        <div className="card-overlay">
+          <h3>Book Distribution</h3>
+          <p>We provide children with books, storybooks, and educational materials to nurture their curiosity and love for learning.</p>
+          <Link to="/book-distribution"><button className="learn-more-btn1">Learn more</button></Link>        </div>
+      </div>
+
+      <div className="initiative-card">
+        <img src="/assets/image3.png" alt="Nutrition Programs" className="card-image" />
+        <div className="card-overlay">
+          <h3>Teaching Sessions</h3>
+          <p>By offering children a strong educational foundation, we empower them to build a better and more promising future.</p>
+          <Link to="/teaching"><button className="learn-more-btn1">Learn more</button></Link>    
               </div>
-            ))}
-          </div>
+      </div>
+    </div>
+
         </div>
       </section>
       {/* Contribution Section */}
@@ -167,7 +183,7 @@ const handleSubmit = async (e) => {
   <h2 className="contribution-heading">You can contribute to provide a place for children in need!</h2>
   <div className="contribution-buttons">
     <button className="volunteer-btn" onClick={() => setShowVolunteerForm(true)}>Join as a volunteer</button>
-    <button className="donate-btn44">Donate</button>
+    {/* <button className="donate-btn44"></button> */}
   </div>
 </section>
 {showVolunteerForm && (
@@ -186,7 +202,16 @@ const handleSubmit = async (e) => {
     </div>
   </div>
 )}
-
+{showEventPopup && selectedEvent && (
+  <div className="modal-overlay">
+    <div className="event-popup">
+      <h2>{selectedEvent.eventName}</h2>
+      <p><strong>Date:</strong> {new Date(selectedEvent.dateTime).toLocaleString()}</p>
+      <p>{selectedEvent.msg}</p>
+      <button onClick={() => setShowEventPopup(false)}>Close</button>
+    </div>
+  </div>
+)}
 
 {/* Events Section */}
 <section className="events-section">
@@ -212,9 +237,11 @@ const handleSubmit = async (e) => {
         <div className="event-info">
           <p className="event-tag">NEXT EVENTS</p>
           <h4>{event.eventName}</h4>
-          <p className="event-msg">{event.msg}</p>
         </div>
-        <div className="event-arrow">➜</div>
+        <div className="event-arrow" onClick={() => {
+  setSelectedEvent(event);
+  setShowEventPopup(true);
+}}>➜</div>
       </div>
     );
   })}
@@ -223,42 +250,37 @@ const handleSubmit = async (e) => {
 
 {/* Footer Section */}
 <footer className="footer">
-        <div className="footer-container">
-          {/* Brand Name */}
-          <div className="footer-brand">
-            <h2>Ek Hath Madticha</h2>
-          </div>
+  <div className="footer-container">
+    {/* Brand Name */}
+    <div className="footer-brand">
+      <h2>Ek Hath Madticha</h2>
+    </div>
 
-          {/* Navigation Links */}
-          <div className="footer-links">
-            <div className="footer-column">
-              <h3>Home</h3>
-              <ul>
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Team</a></li>
-                <li><a href="#">What we do</a></li>
-                <li><a href="#">Contact</a></li>
-              </ul>
-            </div>
+    {/* Navigation Links */}
+    <div className="footer-links">
+      <div className="footer-column">
+        <ul>
+        <li><Link to="/"><h3>Home</h3></Link></li>
+        <li><Link to="/about">About Us</Link></li>
+        <li><Link to="/what-we-do">What We Do</Link></li>
+        <li><Link to="/contact">Contact</Link></li>
+        <li><Link to="/donate">Donate</Link></li>
+        </ul>
+      </div>
 
-            <div className="footer-column">
-              <h3>More</h3>
-              <ul>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Events</a></li>
-                <li><a href="#">Donate</a></li>
-              </ul>
-            </div>
-
-            <div className="footer-column">
-              <h3>Connect</h3>
-              <ul>
-                <li><a href="#">Instagram</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <div className="footer-column">
+        <h3>Connect</h3>
+        <ul>
+        <li><a href="https://www.instagram.com/ekhatmadticha?igsh=MXR1Mmo2Z2h0cW4wZA==" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="mailto:chetanchalke7795@gmail.com">Gmail</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div className="footer-copyright">
+    <p>© {new Date().getFullYear()} Ek Hath Madticha. All rights reserved.</p>
+  </div>
+</footer>
     </div>
     </>
   );
